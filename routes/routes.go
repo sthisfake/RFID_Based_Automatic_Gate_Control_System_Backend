@@ -1,0 +1,7 @@
+package routes
+
+import "github.com/pocketbase/pocketbase"
+
+func RegisterAllRoutes(app *pocketbase.PocketBase) {
+	gateRoutes(app)
+}
