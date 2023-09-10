@@ -39,6 +39,21 @@ type AutorizedPersonsList struct {
 	Items []AutorizedPersonsItem `json:"items"`
 }
 
+type PeopleInTheBuildingItem struct { 
+	UserId string `json:"user_id"`
+	FullName string `json:"full_name"`
+	EnteryDate	string `json:"entery_date"`
+	EnteryTime string `json:"entery_time"`
+}
+
+type PeopleInTheBuildingList struct {
+	Page int `json:"page"`
+	PerPage int `json:"per_page"`
+	TotalPages int `json:"total_pages"`
+	TotalItems int `json:"total_items"`
+	Items []PeopleInTheBuildingItem `json:"items"`
+}
+
 func (m *AuthorizedPerson) TableName() string {
 	return "authorized_person"
 }

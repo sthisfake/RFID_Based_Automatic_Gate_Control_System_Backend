@@ -46,3 +46,34 @@ func GetOverallViewToday(app *pocketbase.PocketBase) echo.HandlerFunc {
 
 	}
 }
+
+
+func GetCurrentPeopleInBuilding(app *pocketbase.PocketBase)echo.HandlerFunc{
+	return func(c echo.Context) error {
+
+		// only admin endpoint 
+		admin, _ := c.Get(apis.ContextAdminKey).(*pocketModel.Admin)
+		if admin == nil {
+			return apis.NewForbiddenError("access denied to this endpoint", nil)
+		}
+
+		page := c.PathParam("page")
+		perPage := c.PathParam("per_page")
+
+		pageInt, pageErr := strconv.Atoi(page)
+		perPageInt, perPageErr := strconv.Atoi(perPage)
+
+		if pageErr != nil || perPageErr != nil {
+			return apis.NewBadRequestError("Invalid page or per_page parameter", nil)
+		}
+
+		// get the list of people in the building
+		result , err := db.PeopleInTheBuilding(pageInt ,  perPageInt , app.Dao())
+
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, map[string]string{"error": "Internal Server Error while processing the list of autorized persons"}) 
+		}
+
+		return c.JSON(http.StatusOK, result)
+	}
+}

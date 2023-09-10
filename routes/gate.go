@@ -19,4 +19,13 @@ func gateRoutes(app *pocketbase.PocketBase) {
 		})
 		return nil
 	})
+
+	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
+		e.Router.AddRoute(echo.Route{
+			Method:  http.MethodGet,
+			Path:    "/people_in_building/:page/:per_page/",
+			Handler: controllers.GetCurrentPeopleInBuilding(app),
+		})
+		return nil
+	})
 }

@@ -20,6 +20,22 @@ type MonitoringOverall struct{
 	Exit string `json:"exit"`
 }
 
+type DashbordMonitoringItem struct {
+	UserId string `json:"user_id"`
+	FullName string `json:"full_name"`
+	EnteryTime string `json:"entery_time"`
+	ExitTime string `json:"exit_time"`
+}
+
+type DashbordMonitoringList struct {
+	Page int `json:"page"`
+	PerPage int `json:"per_page"`
+	TotalPages int `json:"total_pages"`
+	TotalItems int `json:"total_items"`
+	Items []DashbordMonitoringItem `json:"items"`
+}
+
+
 
 func (m *MonitoringTest) TableName() string {
 	return "monitoring"
