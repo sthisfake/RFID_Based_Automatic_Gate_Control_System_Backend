@@ -15,7 +15,7 @@ func TodayCarEnteryList(dao *daos.Dao , date time.Time) ([]*models.MonitoringTes
 	
 	entery := []*models.MonitoringTest{}
 
-	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE created >= {:today} ").Bind(dbx.Params{
+	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE entery_time >= {:today} ").Bind(dbx.Params{
 		"today" : date,
 	}).All(&entery)
 
@@ -31,7 +31,7 @@ func TodayCarExitList(dao *daos.Dao , date time.Time)  ([]*models.MonitoringTest
 	
 	exit := []*models.MonitoringTest{}
 
-	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE created >= {:today} AND exit_time != {:null}").Bind(dbx.Params{
+	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE entery_time >= {:today} AND exit_time != {:null}").Bind(dbx.Params{
 		"today" : date,
 		"null" : "",
 	}).All(&exit)

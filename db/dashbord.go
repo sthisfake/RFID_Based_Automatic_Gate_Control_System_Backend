@@ -16,9 +16,11 @@ func GetDashbordResult(page int, per_page int, dao *daos.Dao , date time.Time) (
 	var perPageUsed int
 	dbLogs := []*models.MonitoringTest{}
 	result := models.DashbordMonitoringList{}
+	newDate := date.Add(time.Hour * 23).Add(time.Minute * 59).Add(time.Second *59)
 
-	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE created >= {:today} ").Bind(dbx.Params{
+	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE entery_time >= {:today} AND  entery_time <= {:tomorrow} ").Bind(dbx.Params{
 		"today" : date,
+		"tomorrow" : newDate,
 	}).All(&dbLogs)
 
 	if err != nil {

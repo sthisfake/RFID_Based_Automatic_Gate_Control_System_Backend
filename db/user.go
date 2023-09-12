@@ -146,7 +146,7 @@ func GetAutorizedList(page int , per_page int , dao *daos.Dao) (models.Autorized
 func GetLastEnteryDate(dao *daos.Dao , userId string) (string , error) {
 
 	dbLogs := []*models.MonitoringTest{}
-	err := MonitorQuerry(dao).AndWhere(dbx.HashExp{"user_id": userId}).AndOrderBy("created DESC").All(&dbLogs)
+	err := MonitorQuerry(dao).AndWhere(dbx.HashExp{"user_id": userId}).AndOrderBy("entery_time DESC").All(&dbLogs)
 	if err != nil {
 		fmt.Println(err.Error())
 		return  "", err
@@ -167,7 +167,7 @@ func GetUserStatus(dao *daos.Dao , userId string) (string , error) {
 	currentTime := time.Now().UTC()
 	midNightTime , _ := utils.ConvertTime(currentTime)
 
-	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE created >= {:today} AND user_id = {:user_id} ").Bind(dbx.Params{
+	err := dao.DB().NewQuery("SELECT * FROM monitoring WHERE entery_time >= {:today} AND user_id = {:user_id} ").Bind(dbx.Params{
 		"today" : midNightTime,
 		"user_id" : userId,
 	}).All(&dbLogs)

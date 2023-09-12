@@ -32,7 +32,8 @@ func GetHistoryTime(t time.Time) string {
 		return ""
 	}
 	irstTime := t.Add(time.Hour * 3).Add(time.Minute * 30) 
-	pt := ptime.Unix(irstTime.UTC().Unix(), 0)
+	pt := ptime.New(irstTime)
+	// pt := ptime.Unix(irstTime.UTC().Unix(), 0)
 	return pt.Format("hh:mm")
 }
 
