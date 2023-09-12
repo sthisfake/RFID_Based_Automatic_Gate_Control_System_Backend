@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gate/routes"
 	"log"
 
 	"github.com/pocketbase/pocketbase"
